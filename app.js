@@ -80,6 +80,34 @@ var comments = [
         body: "This is like a dream come true!",
     },
 ];
+function renderPost(posts) {
+    var postsHolder = document.querySelector("#postsHolder");
+    if (postsHolder) {
+        posts.map(function (post) {
+            var li = document.createElement("li");
+            var img = document.createElement("img");
+            var title = document.createElement("h2");
+            var description = document.createElement("p");
+            img.classList.add("postImg");
+            li.classList.add("postCard");
+            title.classList.add("postTitle");
+            description.classList.add("postDescription");
+            title.innerText = post.postTitle;
+            img.src = post.postImage;
+            description.innerText = post.postDescription;
+            li.appendChild(title);
+            li.appendChild(description);
+            li.appendChild(img);
+            postsHolder.appendChild(li);
+            img.addEventListener("click", function (e) {
+                e.stopPropagation();
+                createModal(post);
+                openModal();
+            });
+        });
+    }
+}
+renderPost(posts);
 var modal = document.querySelector("#modal");
 var modalContent = document.querySelector("#modalContentId");
 function openModal() {
@@ -98,6 +126,7 @@ function createModal(post) {
     var postHolder = document.querySelector("#modalContentId");
     if (postHolder) {
         //Create elements
+        postHolder.innerHTML = "";
         var section = document.createElement("section");
         var article = document.createElement("article");
         var h1 = document.createElement("h1");
@@ -142,6 +171,9 @@ function createComments(comments) {
             commentHolder.appendChild(li);
         });
     }
+    else {
+        console.error("No comment");
+    }
 }
-createModal(posts[0]);
+//createModal(posts[0]);
 createComments(comments);

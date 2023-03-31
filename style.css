@@ -157,20 +157,48 @@ table {
   background-color: #ddd;
   color: #333;
 }
+
+.postList{
+  list-style: none;
+}
+
+.postCard{
+  width:100%;
+
+}
+
+.postCardHolder{
+  width:512px;
+  display:flex;
+  flex-direction:column;
+  gap: 80px;
+
+}
+
+.postTitle{
+  font-weight: bold;
+  font-size:2em;
+  margin-bottom:16px;
+}
+
 .modalHolder {
   width: 100%;
-  height: 100%;
+  height:100%;
   position: absolute;
   top: 0;
   left: 0;
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   background: rgba(0, 0, 0, 0.5);
+  
+  
 }
 .modalContent {
   width: 90%;
   height: 512px;
+  top: 60px;
+  left: 0;
   border-radius: 4px;
   border: 1px solid black;
   display: flex;
@@ -178,12 +206,19 @@ table {
   align-items: center;
   padding: 0;
   overflow: hidden;
+  position:fixed;
 }
+
+
+
 
 
 .postImg {
   width: 100%;
+  border-radius: 8px;
+  cursor: pointer;
 }
+
 
 .left {
   width: 100%;
@@ -230,7 +265,7 @@ strong {
 
 .postDescription {
   width: 100%;
-  height: 200px;
+  margin-bottom:16px;
 }
 
 footer {
