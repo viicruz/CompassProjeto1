@@ -9,7 +9,8 @@ const posts: Post[] = [
   {
     postId: 1,
     postTitle: "Nature",
-    postDescription: "lorem ipsum de",
+    postDescription:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     postImage:
       "https://cdn.corporate.walmart.com/dims4/WMT/f7a8313/2147483647/strip/true/crop/1920x1080+0+0/resize/1200x675!/quality/90/?url=https%3A%2F%2Fcdn.corporate.walmart.com%2F7b%2F66%2F142c151b4cd3a19c13e1ca65f193%2Fbusinessfornature-banner.png",
   },
@@ -67,37 +68,37 @@ const comments: PostComment[] = [
   },
   {
     id: 5,
-    postId: 1,
+    postId: 2,
     email: "example@example.com",
     body: "I'm loving it!",
   },
   {
     id: 6,
-    postId: 1,
+    postId: 2,
     email: "codingrocks@mail.com",
     body: "You guys rock!",
   },
   {
     id: 7,
-    postId: 1,
+    postId: 2,
     email: "programmer123@mail.com",
     body: "I'm blown away!",
   },
   {
     id: 8,
-    postId: 1,
+    postId: 3,
     email: "artlover@mail.com",
     body: "The art is fantastic!",
   },
   {
     id: 9,
-    postId: 1,
+    postId: 3,
     email: "techenthusiast@mail.com",
     body: "This is next level!",
   },
   {
     id: 10,
-    postId: 1,
+    postId: 3,
     email: "videogamefan@mail.com",
     body: "This is like a dream come true!",
   },
@@ -116,12 +117,10 @@ function renderPost(posts: Post[]) {
       li.classList.add("postCard");
       title.classList.add("postTitle");
       description.classList.add("postDescription");
-      
-      
+
       title.innerText = post.postTitle;
-      img.src= post.postImage;
+      img.src = post.postImage;
       description.innerText = post.postDescription;
-      
 
       li.appendChild(title);
       li.appendChild(description);
@@ -129,10 +128,11 @@ function renderPost(posts: Post[]) {
       postsHolder.appendChild(li);
 
       img.addEventListener("click", (e) => {
-        e.stopPropagation();  
+        e.stopPropagation();
         createModal(post);
         openModal();
-      })
+        createComments(comments, post.postId);
+      });
     });
   }
 }
@@ -187,6 +187,7 @@ function createModal(post: Post) {
     section.classList.add("right");
     img.classList.add("postImg");
     commentsHolder.classList.add("comments");
+    h1.classList.add("postTitle");
 
     h1.textContent = post.postTitle;
     img.src = post.postImage;
@@ -194,12 +195,15 @@ function createModal(post: Post) {
   }
 }
 
-function createComments(comments: PostComment[]) {
+function createComments(comments: PostComment[], postId: number) {
   const commentHolder = document.querySelector<HTMLUListElement>(
     "#commentContentHolder"
   );
   if (commentHolder) {
-    comments.map((item) => {
+    const filteredComments = comments.filter((comment: PostComment) => {
+      return comment.postId === postId;
+    });
+    filteredComments.map((item) => {
       const li = document.createElement("li");
       li.classList.add("commentCard");
       const div = document.createElement("div");
@@ -212,10 +216,7 @@ function createComments(comments: PostComment[]) {
       li.appendChild(div);
       commentHolder.appendChild(li);
     });
-  } else{
+  } else {
     console.error("No comment");
   }
 }
-
-//createModal(posts[0]);
-createComments(comments);
